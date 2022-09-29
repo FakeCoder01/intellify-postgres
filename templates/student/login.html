@@ -42,6 +42,9 @@
                            <button class="btn btn-primary btn-block" type="submit">Login</button>
                         </div>
                      </form>
+                     {% if messages %}
+                         {% for message in messages %} <li class="text-danger"> {{message}}</li> {% endfor %}
+                     {% endif %}
                      <div class="text-center forgotpass">Login as <a href="/school/">School</a> | <a href="/teacher/">Teacher</a> </div>
                   </div>
                </div>

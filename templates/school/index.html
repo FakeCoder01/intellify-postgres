@@ -11,6 +11,168 @@
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+   <style>
+      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
+
+      :root {
+         --calendar-bg-color: #262829;
+         --calendar-font-color: #FFF;
+         --weekdays-border-bottom-color: #404040;
+         --calendar-date-hover-color: #505050;
+         --calendar-current-date-color: #1b1f21;
+         --calendar-today-color: linear-gradient(to bottom, #03a9f4, #2196f3);
+         --calendar-today-innerborder-color: transparent;
+         --calendar-nextprev-bg-color: transparent;
+         --next-prev-arrow-color: #FFF;
+         --calendar-border-radius: 16px;
+         --calendar-prevnext-date-color: #484848
+      }
+
+      * {
+         padding: 0;
+         margin: 0;
+      }
+
+      .calendar {
+         font-family: 'IBM Plex Sans', sans-serif;
+         position: relative;
+         max-width: 400px;
+         /*change as per your design need */
+         min-width: 320px;
+         background: var(--calendar-bg-color);
+         color: var(--calendar-font-color);
+         margin: 20px auto;
+         box-sizing: border-box;
+         overflow: hidden;
+         font-weight: normal;
+         border-radius: var(--calendar-border-radius);
+      }
+
+      .calendar-inner {
+         padding: 10px 10px;
+      }
+
+      .calendar .calendar-inner .calendar-body {
+         display: grid;
+         grid-template-columns: repeat(7, 1fr);
+         text-align: center;
+      }
+
+      .calendar .calendar-inner .calendar-body div {
+         padding: 4px;
+         min-height: 30px;
+         line-height: 30px;
+         border: 1px solid transparent;
+         margin: 10px 2px 0px;
+      }
+
+      .calendar .calendar-inner .calendar-body div:nth-child(-n+7) {
+         border: 1px solid transparent;
+         border-bottom: 1px solid var(--weekdays-border-bottom-color);
+      }
+
+      .calendar .calendar-inner .calendar-body div:nth-child(-n+7):hover {
+         border: 1px solid transparent;
+         border-bottom: 1px solid var(--weekdays-border-bottom-color);
+      }
+
+      .calendar .calendar-inner .calendar-body div>a {
+         color: var(--calendar-font-color);
+         text-decoration: none;
+         display: flex;
+         justify-content: center;
+      }
+
+      .calendar .calendar-inner .calendar-body div:hover {
+         border: 1px solid var(--calendar-date-hover-color);
+         border-radius: 4px;
+      }
+
+      .calendar .calendar-inner .calendar-body div.empty-dates:hover {
+         border: 1px solid transparent;
+      }
+
+      .calendar .calendar-inner .calendar-controls {
+         display: grid;
+         grid-template-columns: repeat(3, 1fr);
+      }
+
+      .calendar .calendar-inner .calendar-today-date {
+         display: grid;
+         text-align: center;
+         cursor: pointer;
+         margin: 3px 0px;
+         background: var(--calendar-current-date-color);
+         padding: 8px 0px;
+         border-radius: 10px;
+         width: 80%;
+         margin: auto;
+      }
+
+      .calendar .calendar-inner .calendar-controls .calendar-year-month {
+         display: flex;
+         min-width: 100px;
+         justify-content: space-evenly;
+         align-items: center;
+      }
+
+      .calendar .calendar-inner .calendar-controls .calendar-next {
+         text-align: right;
+      }
+
+      .calendar .calendar-inner .calendar-controls .calendar-year-month .calendar-year-label,
+      .calendar .calendar-inner .calendar-controls .calendar-year-month .calendar-month-label {
+         font-weight: 500;
+         font-size: 20px;
+      }
+
+      .calendar .calendar-inner .calendar-body .calendar-today {
+         background: var(--calendar-today-color);
+         border-radius: 4px;
+      }
+
+      .calendar .calendar-inner .calendar-body .calendar-today:hover {
+         border: 1px solid transparent;
+      }
+
+      .calendar .calendar-inner .calendar-body .calendar-today a {
+         outline: 2px solid var(--calendar-today-innerborder-color);
+      }
+
+      .calendar .calendar-inner .calendar-controls .calendar-next a,
+      .calendar .calendar-inner .calendar-controls .calendar-prev a {
+         color: var(--calendar-font-color);
+         font-family: arial, consolas, sans-serif;
+         font-size: 26px;
+         text-decoration: none;
+         padding: 4px 12px;
+         display: inline-block;
+         background: var(--calendar-nextprev-bg-color);
+         margin: 10px 0 10px 0;
+      }
+
+      .calendar .calendar-inner .calendar-controls .calendar-next a svg,
+      .calendar .calendar-inner .calendar-controls .calendar-prev a svg {
+         height: 20px;
+         width: 20px;
+      }
+
+      .calendar .calendar-inner .calendar-controls .calendar-next a svg path,
+      .calendar .calendar-inner .calendar-controls .calendar-prev a svg path {
+         fill: var(--next-prev-arrow-color);
+      }
+
+      .calendar .calendar-inner .calendar-body .prev-dates,
+      .calendar .calendar-inner .calendar-body .next-dates {
+         color: var(--calendar-prevnext-date-color);
+      }
+
+      .calendar .calendar-inner .calendar-body .prev-dates:hover,
+      .calendar .calendar-inner .calendar-body .next-dates:hover {
+         border: 1px solid transparent;
+         pointer-events: none;
+      }
+   </style>
    <title>School | Intellify</title>
 
    {% block body %} {% endblock body %}
@@ -36,7 +198,7 @@
                            <i class="fas fa-user-graduate"></i>
                         </div>
                         <div class="db-info">
-                           <h3>518</h3>
+                           <h3>2900</h3>
                            <h6>Students</h6>
                         </div>
                      </div>
@@ -51,8 +213,8 @@
                            <i class="fas fa-crown"></i>
                         </div>
                         <div class="db-info">
-                           <h3>50+</h3>
-                           <h6>Awards</h6>
+                           <h3>140</h3>
+                           <h6>Teachers</h6>
                         </div>
                      </div>
                   </div>
@@ -66,8 +228,8 @@
                            <i class="fas fa-building"></i>
                         </div>
                         <div class="db-info">
-                           <h3>10+</h3>
-                           <h6>Department</h6>
+                           <h3>53</h3>
+                           <h6>Classrooms</h6>
                         </div>
                      </div>
                   </div>
@@ -81,8 +243,8 @@
                            <i class="fas fa-file-invoice-dollar"></i>
                         </div>
                         <div class="db-info">
-                           <h3>$505</h3>
-                           <h6>Revenue</h6>
+                           <h3>10</h3>
+                           <h6>Subjects</h6>
                         </div>
                      </div>
                   </div>
@@ -91,11 +253,12 @@
          </div>
          <div class="row">
             <div class="col-md-12 col-lg-6">
+               <h2>Classroom Tracker</h2>
                <div class="card card-chart">
                   <div class="card-header">
                      <div class="row align-items-center">
                         <div class="col-6">
-                           <h5 class="card-title">Revenue</h5>
+                           <h5 class="card-title">Attendance</h5>
                         </div>
                         <div class="col-6">
                            <ul class="list-inline-group text-right mb-0 pl-0">
@@ -112,209 +275,297 @@
                         </div>
                      </div>
                   </div>
-                  <div class="card-body">
+                  <!-- <div class="card-body">
                      <div id="apexcharts-area"></div>
-                  </div>
-               </div>
-            </div>
-            <div class="col-md-12 col-lg-6">
-               <div class="card card-chart">
-                  <div class="card-header">
-                     <div class="row align-items-center">
-                        <div class="col-6">
-                           <h5 class="card-title">Number of Students</h5>
-                        </div>
-                        <div class="col-6">
-                           <ul class="list-inline-group text-right mb-0 pl-0">
-                              <li class="list-inline-item">
-                                 <div class="form-group mb-0 amount-spent-select">
-                                    <select class="form-control form-control-sm">
-                                       <option>Today</option>
-                                       <option>Last Week</option>
-                                       <option>Last Month</option>
-                                    </select>
-                                 </div>
-                              </li>
-                           </ul>
-                        </div>
-                     </div>
-                  </div>
+                  </div> -->
                   <div class="card-body">
                      <div id="bar"></div>
                   </div>
                </div>
             </div>
+            <div class="col-md-12 col-lg-6">
+               <div class="card card-chart">
+                  <div class="card-header">
+                     <div class="row align-items-center">
+                        <div class="col-6">
+                           <h5 class="card-title">Classrooms</h5>
+                        </div>
+                        <div class="col-6">
+                           <ul class="list-inline-group text-right mb-0 pl-0">
+                              <li class="list-inline-item">
+                                 <div class="form-group mb-0 amount-spent-select">
+                                    <select class="form-control form-control-sm">
+                                       <option>1st</option>
+                                       <option>2nd</option>
+                                       <option>3rd</option>
+                                       <option>4th</option>
+                                       <option>5th</option>
+                                       <option>6th</option>
+                                       <option>7th</option>
+                                       <option>8th</option>
+                                       <option>9th</option>
+                                       <option>10th</option>
+                                       <option>11th</option>
+                                       <option>12th</option>
+                                    </select>
+                                 </div>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  <table class="table">
+                     <thead>
+                        <tr>
+                           <th scope="col">S no.</th>
+                           <th scope="col">Subjects</th>
+                           <th scope="col">Topic</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <th scope="row">1</th>
+                           <td>English</td>
+                           <td>Story Writing</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">2</th>
+                           <td>Hindi</td>
+                           <td>Hindi Grammar</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">3</th>
+                           <td>Maths</td>
+                           <td>Integration</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">4</th>
+                           <td>Bengali</td>
+                           <td>Bengali speaking</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">5</th>
+                           <td>Computer</td>
+                           <td>Python programming</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">6</th>
+                           <td>German</td>
+                           <td>German speaking</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">7</th>
+                           <td>Science</td>
+                           <td>Physics practical</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
          </div>
          <div class="row">
-            <div class="col-md-6 d-flex">
+            <h3 class="mx-3 my-3">Progress Tracker</h3>
+
+            <div class="col-md-20">
                <div class="card flex-fill">
                   <div class="card-header">
-                     <h5 class="card-title">Star Students</h5>
+                     <h5 class="card-title">Month wise syllabus completion</h5>
                   </div>
-                  <div class="card-body">
-                     <div class="table-responsive">
-                        <table class="table table-hover table-center">
-                           <thead class="thead-light">
-                              <tr>
-                                 <th>ID</th>
-                                 <th>Name</th>
-                                 <th class="text-center">Marks</th>
-                                 <th class="text-center">Percentage</th>
-                                 <th class="text-right">Year</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td class="text-nowrap">
-                                    <div>PRE2209</div>
-                                 </td>
-                                 <td class="text-nowrap">John Smith</td>
-                                 <td class="text-center">1185</td>
-                                 <td class="text-center">98%</td>
-                                 <td class="text-right">
-                                    <div>2019</div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-nowrap">
-                                    <div>PRE1245</div>
-                                 </td>
-                                 <td class="text-nowrap">Jolie Hoskins</td>
-                                 <td class="text-center">1195</td>
-                                 <td class="text-center">99.5%</td>
-                                 <td class="text-right">
-                                    <div>2018</div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-nowrap">
-                                    <div>PRE1625</div>
-                                 </td>
-                                 <td class="text-nowrap">Pennington Joy</td>
-                                 <td class="text-center">1196</td>
-                                 <td class="text-center">99.6%</td>
-                                 <td class="text-right">
-                                    <div>2017</div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-nowrap">
-                                    <div>PRE2516</div>
-                                 </td>
-                                 <td class="text-nowrap">Millie Marsden</td>
-                                 <td class="text-center">1187</td>
-                                 <td class="text-center">98.2%</td>
-                                 <td class="text-right">
-                                    <div>2016</div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-nowrap">
-                                    <div>PRE2209</div>
-                                 </td>
-                                 <td class="text-nowrap">John Smith</td>
-                                 <td class="text-center">1185</td>
-                                 <td class="text-center">98%</td>
-                                 <td class="text-right">
-                                    <div>2015</div>
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
+                  <div class="card-body d-flex justify-content-between">
+
+                     <div class="card flex-fill">
+                        <div class="card-header">
+                           <div class="row align-items-center">
+                              <div class="col-12">
+                                 <h5 class="card-title">English Progress Tracker</h5>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="dash-widget">
+                           <div class="circle-bar circle-bar1">
+                              <div class="circle-graph1" data-percent="70">
+                                 <b>70%</b>
+                              </div>
+                           </div>
+                           <div class="dash-info">
+                              <h6>Lesson Progressed</h6>
+                              <h4>30 <span>/ 60</span></h4>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="card flex-fill">
+                        <div class="card-header">
+                           <div class="row align-items-center">
+                              <div class="col-12">
+                                 <h5 class="card-title">Maths Progress Tracker</h5>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="dash-widget">
+                           <div class="circle-bar circle-bar1">
+                              <div class="circle-graph1" data-percent="20">
+                                 <b>20%</b>
+                              </div>
+                           </div>
+                           <div class="dash-info">
+                              <h6>Lesson Progressed</h6>
+                              <h4>30 <span>/ 60</span></h4>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="card flex-fill">
+                        <div class="card-header">
+                           <div class="row align-items-center">
+                              <div class="col-12">
+                                 <h5 class="card-title">Science Progress Tracker</h5>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="dash-widget">
+                           <div class="circle-bar circle-bar1">
+                              <div class="circle-graph1" data-percent="90">
+                                 <b>90%</b>
+                              </div>
+                           </div>
+                           <div class="dash-info">
+                              <h6>Lesson Progressed</h6>
+                              <h4>30 <span>/ 60</span></h4>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="card flex-fill">
+                        <div class="card-header">
+                           <div class="row align-items-center">
+                              <div class="col-12">
+                                 <h5 class="card-title">Hindi Progress Tracker</h5>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="dash-widget">
+                           <div class="circle-bar circle-bar1">
+                              <div class="circle-graph1" data-percent="30">
+                                 <b>30%</b>
+                              </div>
+                           </div>
+                           <div class="dash-info">
+                              <h6>Lesson Progressed</h6>
+                              <h4>30 <span>/ 60</span></h4>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="d-flex">
+                  <div class="col-md-6 d-flex">
+                     <div class="card flex-fill">
+                        <div class="card-header">
+                           <h5 class="card-title">Distribution by Grades</h5>
+                        </div>
+                        <div class="card-body">
+                           <div id="chart">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="card card-chart w-100">
+                     <div class="card-header">
+                        <div class="row align-items-center">
+                           <div class="col-6">
+                              <h5 class="card-title">Attendance</h5>
+                           </div>
+                           <div class="col-6">
+                              <ul class="list-inline-group text-right mb-0 pl-0">
+                                 <li class="list-inline-item">
+                                    <div class="form-group mb-0 amount-spent-select">
+                                       <select class="form-control form-control-sm">
+                                          <option>1st</option>
+                                          <option>2nd</option>
+                                          <option>3rd</option>
+                                          <option>4th</option>
+                                          <option>5th</option>
+                                          <option>6th</option>
+                                          <option>7th</option>
+                                          <option>8th</option>
+                                          <option>9th</option>
+                                          <option>10th</option>
+                                          <option>11th</option>
+                                          <option>12th</option>
+                                       </select>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="card-body">
+                        <div id="chart2">
+                        </div>
+                     </div>
+                  </div>
+
+
+               </div>
+
+               <h3 class="mx-3 my-3">Classroom Management</h3>
+               <div class="d-flex">
+                  <!-- Calender -->
+                  <div class="calendar"></div>
+
+                  <div class="col-md-6 d-flex">
+                     <div class="card flex-fill">
+                        <div class="card-header bg-dark">
+                           <h5 class="card-title text-white"><b>Important Events</b></h5>
+                        </div>
+                        <div class="card-body">
+                           <ul class="list-group">
+                              <li class="list-group-item">1. Metting with teachers</li>
+                              <li class="list-group-item">2. Conduct Science Olympiad</li>
+                              <li class="list-group-item">3. Metting with teachers</li>
+                              <li class="list-group-item">4. Conduct Science Olympiad</li>
+                              <li class="list-group-item">5. Metting with teachers</li>
+                              <li class="list-group-item">6. Conduct Science Olympiad</li>
+                           </ul>
+                        </div>
                      </div>
                   </div>
                </div>
             </div>
-            <div class="col-md-6 d-flex">
-               <div class="card flex-fill">
-                  <div class="card-header">
-                     <h5 class="card-title">Student Activity</h5>
-                  </div>
-                  <div class="card-body">
-                     <ul class="activity-feed">
-                        <li class="feed-item">
-                           <div class="feed-date">Apr 13</div>
-                           <span class="feed-text"><a>John Doe</a> won 1st place in <a>"Chess"</a></span>
-                        </li>
-                        <li class="feed-item">
-                           <div class="feed-date">Mar 21</div>
-                           <span class="feed-text"><a>Justin Lee</a> participated in <a
-                                 href="invoice.html">"Carrom"</a></span>
-                        </li>
-                        <li class="feed-item">
-                           <div class="feed-date">Feb 2</div>
-                           <span class="feed-text"><a>Justin Lee</a>attended internation conference in <a
-                                 href="profile.html">"St.John School"</a></span>
-                        </li>
-                        <li class="feed-item">
-                           <div class="feed-date">Apr 13</div>
-                           <span class="feed-text"><a>John Doe</a> won 1st place in <a>"Chess"</a></span>
-                        </li>
-                        <li class="feed-item">
-                           <div class="feed-date">Mar 21</div>
-                           <span class="feed-text"><a>Justin Lee</a> participated in <a
-                                 href="invoice.html">"Carrom"</a></span>
-                        </li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="row">
-            <div class="col-xl-3 col-sm-6 col-12">
-               <div class="card flex-fill fb sm-box">
-                  <i class="fab fa-facebook"></i>
-                  <h6>50,095</h6>
-                  <p>Likes</p>
-               </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12">
-               <div class="card flex-fill twitter sm-box">
-                  <i class="fab fa-twitter"></i>
-                  <h6>48,596</h6>
-                  <p>Follows</p>
-               </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12">
-               <div class="card flex-fill insta sm-box">
-                  <i class="fab fa-instagram"></i>
-                  <h6>52,085</h6>
-                  <p>Follows</p>
-               </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 col-12">
-               <div class="card flex-fill linkedin sm-box">
-                  <i class="fab fa-linkedin-in"></i>
-                  <h6>69,050</h6>
-                  <p>Follows</p>
-               </div>
-            </div>
+
+            <footer>
+               <p>Copyright © 2022 Intellify.</p>
+            </footer>
          </div>
       </div>
-      <footer>
-         <p>Copyright © 2020 Dreamguys.</p>
-      </footer>
-   </div>
-   </div>
-
-   <script src="{% static '/js/jquery-3.6.0.min.js' %}"></script>
-
-   <script src="{% static '/js/popper.min.js' %}"></script>
-   <script src="{% static '/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-
-   <script src="{% static '/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
-
-   <script src="{% static '/plugins/datatables/datatables.min.js' %}"></script>
-
-   <script src="{% static '/js/script.js' %}"></script>
 
 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-   <!-- <script src="static/plugins/apexchart/apexcharts.min.js"></script> -->
-   <script src="{% static 'plugins/apexchart/apexcharts.min.js' %}"></script>
-   <!-- <script src="static/plugins/apexchart/chart-data.js"></script> -->
-   <script src="{% static 'plugins/apexchart/chart-data.js' %}"></script>
 
-   </body>
+      <script src="{% static '/js/jquery-3.6.0.min.js' %}"></script>
+      <script src="{% static '/js/calender2.js' %}"></script>
+
+      <script src="{% static '/js/popper.min.js' %}"></script>
+      <script src="{% static '/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+
+      <script src="{% static '/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+
+      <script src="{% static '/plugins/datatables/datatables.min.js' %}"></script>
+
+      <script src="{% static '/js/script.js' %}"></script>
+      <script src="{% static '/plugins/simple-calendar/jquery.simple-calendar.js' %}"></script>
+      <script src="{% static '/js/calander.js' %}"></script>
+
+      <script src="{% static '/js/circle-progress.min.js' %}"></script>
+
+      <!-- <script src="static/plugins/apexchart/apexcharts.min.js"></script> -->
+      <script src="{% static 'plugins/apexchart/apexcharts.min.js' %}"></script>
+      <!-- <script src="static/plugins/apexchart/chart-data.js"></> -->
+      <script src="{% static 'plugins/apexchart/chart-data.js' %}"></script>
+
+      </body>
 
 </html>

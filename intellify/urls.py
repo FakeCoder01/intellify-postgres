@@ -26,4 +26,5 @@ urlpatterns = [
     path('student/', include('student.urls'), name="student"),
     path('quiz/', include('quiz.urls'), name="quiz"),
     path('', views.just_the_temp, name="just_the_temp"),
+    path('contact/form/', views.contact_form, name="contact_form"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

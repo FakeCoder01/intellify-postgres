@@ -152,24 +152,34 @@
                         <div class="card-header">
                             <div class="row align-items-center">
                                 <div class="col-6">
-                                    <h5 class="card-title">Ongoing Topics</h5>
+                                    <h5 class="card-title">My lectures</h5>
                                 </div>
                                 <div class="col-6">
                                     <span class="float-right view-link"><a href="#">View All</a></span>
                                 </div>
                             </div>
                         </div>
+
+               
+
+                        <div class="card-body">
+                            <div id="chart-student-graph-bar"></div>
+                        </div>
+
+
+                       
+
+                        <div class="col-12">
+
+                            <h5>Lessons Learnt Today</h5><hr>
+
+
+                        </div>
                         <div class="dash-circle">
                             <div class="row">
                                 <div class="col-12 col-lg-6 col-xl-6 dash-widget3">
                                     <div class="card-body dash-widget1">
-                                        <div class="circle-bar circle-bar2">
-                                            <div class="circle-graph2" data-percent="20">
-                                                <b>20%</b>
-                                            </div>
-                                            <h6>Lesson Learned</h6>
-                                            <h4>10 <span>/ 50</span></h4>
-                                        </div>
+           
                                         <div class="dash-details">
                                             <h4>Integration</h4>
                                             <ul>
@@ -185,15 +195,13 @@
                                         </div>
                                     </div>
                                 </div>
+                          
+                                        
                                 <div class="col-12 col-lg-6 col-xl-6 dash-widget4">
                                     <div class="card-body dash-widget1 dash-widget2">
-                                        <div class="circle-bar circle-bar3">
-                                            <div class="circle-graph3" data-percent="50">
-                                                <b>50%</b>
-                                            </div>
-                                            <h6>Lesson Learned</h6>
-                                            <h4>25 <span>/ 50</span></h4>
-                                        </div>
+
+
+                                        
                                         <div class="dash-details">
                                             <h4>Modern History</h4>
                                             <ul>
@@ -212,13 +220,15 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-12 col-lg-12 col-xl-8 d-flex">
+                        <div class="col-12 col-lg-12 col-xl-12 d-flex">
+
                             <div class="card flex-fill">
                                 <div class="card-header">
                                     <div class="row align-items-center">
                                         <div class="col-6">
-                                            <h5 class="card-title">Learning Activity</h5>
+                                            <h5 class="card-title">My Progress</h5>
                                         </div>
                                         <div class="col-6">
                                             <ul class="list-inline-group text-right mb-0 pl-0">
@@ -236,45 +246,53 @@
                                     </div>
                                 </div>
 
-                                <div class="card-body">
-                                    <div id="chart-student-graph"></div>
+                                <div class="card-body justify-content-between d-flex">
+                                    <div id="chart-student-graph" class="w-75"></div>
+                                    <div class="calendar-info calendar-info1 col-4 w-25" style="border: 3px solid rgb(158, 221, 158); border-radius: 8px;padding:16px; margin-left:10px">
+                                        <h4>Classes Tomorrow</h4>
+                
+                                        <style>
+                                            .calendar-details p {
+                                                margin-right: 4px;
+                                            }
+                                        </style>
+
+                                        
+                                        <div class="calendar-details">
+                                            <p>BEN </p>
+                                            <h6 class="calendar-blue d-flex justify-content-between align-items-center">
+                                                Bengali <span>09am - 10pm <i class="fas fa-clock"></i> </span></h6>
+                                        </div>
+                                        <div class="calendar-details">
+                                            <p>MAT </p>
+                                            <h6 class="calendar-violet d-flex justify-content-between align-items-center">
+                                                Math <span>10am - 11am <i class="fas fa-clock"></i> </span></h6>
+                                        </div>
+                
+                                        <div class="calendar-details">
+                                            <p>HIS </p>
+                                            <h6 class="calendar-orange d-flex justify-content-between align-items-center">
+                                                History
+                                                <span>11am - 12pm <i class="fas fa-clock"></i> </span>
+                                            </h6>
+                                        </div>
+                                        <div class="calendar-details">
+                                            <p>ENG </p>
+                                            <h6 class="calendar-blue d-flex justify-content-between align-items-center">
+                                                English <span>12pm - 1pm <i class="fas fa-clock"></i> </span></h6>
+                                        </div>
+         
+                                    </div>
                                 </div>
                                 
                             </div>
+
+
+                            
                         </div>
-                        <div class="col-12 col-lg-12 col-xl-4 d-flex">
-                            <div class="card flex-fill">
-                                <div class="card-header">
-                                    <h5 class="card-title">Insights</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="teaching-card">
-                                        <ul class="activity-feed">
-                                            <li class="feed-item">
-                                                <span class="feed-text1"><a>Integral by parts</a></span>
-                                                <div class="feed-date1">You need to practice more integral byparts</div>
-                                                <p class="text-danger">Top 20%</span>
-                                            </li>
-                                            <li class="feed-item">
-                                                <span class="feed-text1"><a>MS Excel</a></span>
-                                                <div class="feed-date1">You scored very good. Try advance topics</div>
-                                                <p class="text-success">Top 85%</p>
-                                            </li>
-                                            <li class="feed-item">
-                                                <span class="feed-text1"><a>Climate & Weather</a></span>
-                                                <div class="feed-date1">Continue studing weathers</div>
-                                                <p class="text-success">Top 80%</p>
-                                            </li>
-                                            <li class="feed-item">
-                                                <span class="feed-text1"><a>Verbs and Adverbs</a></span>
-                                                <div class="feed-date1">You can start next chapter</div>
-                                                <p class="text-success">Top 93%</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+                        
+                        
                     </div>
                 </div>
                 <div class="col-12 col-lg-12 col-xl-3 d-flex">
@@ -282,76 +300,91 @@
                         <div class="card-header">
                             <div class="row align-items-center">
                                 <div class="col-12">
-                                    <h5 class="card-title">Today's Classes</h5>
+                                    <h5 class="card-title">My insights</h5>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="card-body">
 
-                            <div class="calendar-info calendar-info1">
+                       
+             
+                                            <div style="text-align: center;">
+                                                <div class="circle-bar circle-bar3" style="display:inline-block;margin:18px">
+                                                    <div class="circle-graph3" data-percent="82">
+                                                        <b>82%</b>
+                                                    </div>
+                                                    <h6>Knowledge</h6>
+                                                </div>
+                                          
+                           
+                  
+                                                <div class="circle-bar circle-bar3" style="display:inline-block;margin:18px">
+                                                    <div class="circle-graph3" data-percent="67">
+                                                        <b>67%</b>
+                                                    </div>
+                                                    <h6>Analytical Skills</h6>
+                                                </div>
+                                      
+                          
+                                        
+                                    
+                                                <div class="circle-bar circle-bar3" style="display:inline-block;margin:18px;margin-left:0px;">
+                                                    <div class="circle-graph3" data-percent="33">
+                                                        <b>33%</b>
+                                                    </div>
+                                                    <h6>Higher Order Skills</h6>
+                                                </div>
+                                            
+                                                <div class="circle-bar circle-bar3" style="display:inline-block; margin-top:18px;margin-left:0px;">
+                                                    <div class="circle-graph3" data-percent="76">
+                                                        <b>76%</b>
+                                                    </div>
+                                                    <h6>Attendance</h6>
+                                                </div>
+                                            </div>
+                                   
+                     
 
-                                <style>
-                                    .calendar-details p {
-                                        margin-right: 4px;
-                                    }
-                                </style>
-                                <div class="calendar-details">
-                                    <p>BEN </p>
-                                    <h6 class="calendar-blue d-flex justify-content-between align-items-center">
-                                        Bengali <span>09am - 10pm <i class="fas fa-clock"></i> </span></h6>
-                                </div>
-                                <div class="calendar-details">
-                                    <p>MAT </p>
-                                    <h6 class="calendar-violet d-flex justify-content-between align-items-center">
-                                        Math <span>10am - 11am <i class="fas fa-clock"></i> </span></h6>
-                                </div>
 
-                                <div class="calendar-details">
-                                    <p>HIS </p>
-                                    <h6 class="calendar-orange d-flex justify-content-between align-items-center">
-                                        History
-                                        <span>11.30am - 12.30pm <i class="fas fa-clock"></i> </span>
-                                    </h6>
-                                </div>
-                                <div class="calendar-details">
-                                    <p>ENG </p>
-                                    <h6 class="calendar-blue d-flex justify-content-between align-items-center">
-                                        English <span>12.30pm - 1.30pm <i class="fas fa-clock"></i> </span></h6>
-                                </div>
-                                <div class="calendar-details">
-                                    <p>GEO</p>
-                                    <h6 class="calendar-red d-flex justify-content-between align-items-center">
-                                        Geography <span>1.30pm - 2.30pm <i class="fas fa-clock"></i> </span> </h6>
+                            <div class="">
+                                <div class="card flex-fill">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Suggetions</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="teaching-card">
+                                            <ul class="activity-feed">
+                                                <li class="feed-item">
+                                                    <span class="feed-text1"><a>Integral by parts</a></span>
+                                                    <div class="feed-date1">You need to practice more integral byparts</div>
+                                                    <p class="text-danger">Top 20%</span>
+                                                </li>
+                                                <li class="feed-item">
+                                                    <span class="feed-text1"><a>MS Excel</a></span>
+                                                    <div class="feed-date1">You scored very good. Try advance topics</div>
+                                                    <p class="text-success">Top 85%</p>
+                                                </li>
+                                                <li class="feed-item">
+                                                    <span class="feed-text1"><a>Climate & Weather</a></span>
+                                                    <div class="feed-date1">Continue studing weathers</div>
+                                                    <p class="text-success">Top 80%</p>
+                                                </li>
+                                                <li class="feed-item">
+                                                    <span class="feed-text1"><a>Verbs and Adverbs</a></span>
+                                                    <div class="feed-date1">You can start next chapter</div>
+                                                    <p class="text-success">Top 93%</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
 
                         
-                            <div class="card-header">
-                                <div class="row align-items-center">
-                                    <div class="col-6">
-                                        <h5 class="card-title">Performance</h5>
-                                    </div>
-                                    <div class="col-6">
-                                        <ul class="list-inline-group text-right mb-0 pl-0">
-                                            <li class="list-inline-item">
-                                                <div class="form-group mb-0 amount-spent-select">
-                                                    <select class="form-control form-control-sm">
-                                                        <option>Weekly</option>
-                                                        <option>Monthly</option>
-                                                        <option>Yearly</option>
-                                                    </select>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="card-body">
-                                <div id="chart-student-graph-bar"></div>
-                            </div>
                             
                         
                     </div>
@@ -390,3 +423,42 @@
     <!-- Mirrored from preschool.dreamguystech.com/html-template/teacher-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 28 Oct 2021 11:11:43 GMT -->
 
 </html>
+<!-- 
+
+                            <div class="calendar-info calendar-info1">
+
+                                <style>
+                                    .calendar-details p {
+                                        margin-right: 4px;
+                                    }
+                                </style>
+                                
+                                <div class="calendar-details">
+                                    <p>BEN </p>
+                                    <h6 class="calendar-blue d-flex justify-content-between align-items-center">
+                                        Bengali <span>09am - 10pm <i class="fas fa-clock"></i> </span></h6>
+                                </div>
+                                <div class="calendar-details">
+                                    <p>MAT </p>
+                                    <h6 class="calendar-violet d-flex justify-content-between align-items-center">
+                                        Math <span>10am - 11am <i class="fas fa-clock"></i> </span></h6>
+                                </div>
+
+                                <div class="calendar-details">
+                                    <p>HIS </p>
+                                    <h6 class="calendar-orange d-flex justify-content-between align-items-center">
+                                        History
+                                        <span>11am - 12pm <i class="fas fa-clock"></i> </span>
+                                    </h6>
+                                </div>
+                                <div class="calendar-details">
+                                    <p>ENG </p>
+                                    <h6 class="calendar-blue d-flex justify-content-between align-items-center">
+                                        English <span>12pm - 1pm <i class="fas fa-clock"></i> </span></h6>
+                                </div>
+                                <div class="calendar-details">
+                                    <p>GEO </p>
+                                    <h6 class="calendar-red d-flex justify-content-between align-items-center">
+                                        Geography <span>1pm - 2pm <i class="fas fa-clock"></i> </span> </h6>
+                                </div>
+                            </div> -->
