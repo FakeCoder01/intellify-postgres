@@ -14,4 +14,7 @@ urlpatterns = [
     path('api/add-quiz-question/', views.add_quiz_question_api, name = 'add_quiz_question_api'),
     path('api/del-quiz-question/', views.del_quiz_question_api, name = 'del_quiz_question_api'),
     path('api/get-quiz-questions/', views.get_quiz_questions_api, name = 'get_quiz_questions_api'),
+
+    path('attempt_quiz/', views.attempt_quiz, name="attempt_quiz"),
+
 ]

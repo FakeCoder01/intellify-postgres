@@ -293,3 +293,7 @@ def ques_list(request):
     }
     return render(request, 'quiz/ques_list.html', context)
 
+def attempt_quiz(request):
+    context = {}
+    return render(request, 'quiz/attempt_quiz.html', context)
+    
