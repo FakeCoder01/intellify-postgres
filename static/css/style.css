@@ -143,11 +143,12 @@ span label:hover {
 input[type="radio"] {
 	position: relative;
 	display: none;
+	margin: 2px;
 }
 
 
 input[type=radio]:checked~.option {
-	background: rgba(245, 228, 129, 0.514);
+	background: rgba(27, 207, 57, 0.514);
 }
 
 .next-button-container {

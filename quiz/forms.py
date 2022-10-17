@@ -7,6 +7,9 @@ class QuestionsForm(ModelForm):
         fields = "__all__"
         exclude = ['uid']
 
+
+
+
 class AnswerForm(ModelForm):
     class Meta:
         model = Answer 

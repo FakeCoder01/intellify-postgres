@@ -5,7 +5,7 @@ from .models import *
 from school.models import *
 from teacher.models import *
 from student.models import *
-import random
+import random, requests
 from django.contrib.auth.decorators import login_required
 
 from .forms import QuestionsForm, AnswerForm
@@ -25,7 +25,7 @@ def add_quiz(request):
             schoolNavHeader = False
             classrooms = teacher.classroom.all()
 
-        if True:
+        try:
             if request.method == 'POST':
                 print('tt')
                 classroom = request.POST['classroom']
@@ -66,7 +66,7 @@ def add_quiz(request):
                 'subjects' : subjects.objects.all() if schoolNavHeader else teacher.subject
             }       
             return render(request, 'quiz/add-quiz.html', context)
-        else:#
+        except:#
             return redirect('/quiz/add')     
     return redirect('/')    
 
@@ -293,7 +293,44 @@ def ques_list(request):
     }
     return render(request, 'quiz/ques_list.html', context)
 
-def attempt_quiz(request):
-    context = {}
-    return render(request, 'quiz/attempt_quiz.html', context)
+
+@login_required(login_url='/student/login')
+def attempt_quiz(request, quiz_id):
+    if quiz.objects.filter(quiz_id=quiz_id).exists():
+        if request.user.studentprofile.classroom == quiz.objects.get(quiz_id=quiz_id).classroom :
+            the_quiz = quiz.objects.get(quiz_id=quiz_id)
+            context = {
+                'quiz' : the_quiz,
+                'no_of_questions' : the_quiz.count_total(),
+            }
+            return render(request, 'quiz/attempt_quiz.html', context)
+        return redirect('/quiz/list/')
+    return redirect('/quiz/list/')
+
+
+@login_required(login_url='/student/login')
+def attempt_quiz_questions_api(request):
+    try:
+        if 'quiz_uid' in request.GET:
+            if not valid_quiz_uid(str(request.GET['quiz_uid'])):
+                return redirect('/student')  
+        else:
+            return redirect('/student')   
+
+        the_quiz =  quiz.objects.get(quiz_id=str(request.GET['quiz_uid']))
+
+        # qi_li = random.shuffle(list(the_quiz.question_list.all()))
+        qi_li = the_quiz.question_list.all()
+
+        data = []
+        for question_obj in qi_li:
+            data.append({
+                "question" : question_obj.question,
+                'question_id' : question_obj.uid,
+                'answers' : question_obj.quiz_answer()
+            })
+        payload = {'status' : True, 'quiz_id' : str(request.GET['quiz_uid']),'data' : data}
+        return JsonResponse(payload)
     
+    except:
+        return HttpResponse("Something went wrong.")   

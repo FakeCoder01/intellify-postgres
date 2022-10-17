@@ -119,7 +119,9 @@
 
     const url = '/quiz/api/quiz-attempt/questions/?quiz_uid={{quiz.quiz_id}}';
     const quiz_time = parseInt('{{quiz.time_limit}}');
+
     let c = quiz_time*60;
+
     async function get_quiz_questions_from_api_call() {
         const result = (await fetch(url)).json();
         return result;
@@ -127,14 +129,15 @@
 
        
     (async function   () {
+
         var result = await get_quiz_questions_from_api_call();
         const Questions = result.data;
 
         // Set start
         var start = true;
 
-        var selected = {};
-    
+        let selected = {};
+
         // Iterate
         function iterate(id) {
             
@@ -172,26 +175,26 @@
             op4.innerText = Questions[id].answers[3].answer;
     
     
-            
     
             // Show selection for op1
             op1.addEventListener("click", () => {
-                selected[id.toString()] = document.getElementById('option-one').value;
+                selected[id.toString()] =  document.getElementById('option-one').value;
+                    
             })
     
             // Show selection for op2
             op2.addEventListener("click", () => {
-                selected[id.toString()] = document.getElementById('option-two').value;
+                selected[id.toString()] =  document.getElementById('option-one').value;
             })
     
             // Show selection for op3
             op3.addEventListener("click", () => {
-                selected[id.toString()] = document.getElementById('option-three').value;
+                selected[id.toString()] =  document.getElementById('option-one').value;
             })
     
             // Show selection for op4
             op4.addEventListener("click", () => {
-                selected[id.toString()] = document.getElementById('option-four').value;
+                selected[id.toString()] =  document.getElementById('option-one').value;
             })
     
     
@@ -240,7 +243,6 @@
 		$('#time_limit').html(result);
 		c--;
 		if(c == 0 ) $('#quiz_attempt_main_container').html('<h1>Time Over, Quiz Ended!</h1>'); 
-        
 		t = setTimeout(function() {
 			timedCount()
 		},1000);

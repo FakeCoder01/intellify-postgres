@@ -51,6 +51,18 @@ class Question(BaseModel):
             })
         return data
 
+    def quiz_answer(self):
+        answer_objs = list(Answer.objects.filter(question = self))
+        random.shuffle(answer_objs)
+        data = []
+
+        for answer_obj in answer_objs:
+            data.append({
+                'answer' : answer_obj.answer,
+                'answer_id' : answer_obj.uid
+            })
+        return data    
+
 class Answer(BaseModel):
     question = models.ForeignKey(Question, related_name='question_answer', on_delete= models.CASCADE)
     answer = models.CharField(max_length = 300)
@@ -92,5 +104,9 @@ class quiz(models.Model):
                 'question_answers' : ques_obj.get_answers()
             })
         return data    
+
+    def count_total(self):
+        self.no_of_questions = self.question_list.count()
+        return self.no_of_questions
 
         
