@@ -4,3 +4,5 @@ pillow
 openpyxl 
 django-crispy-forms
 psycopg2
+psycopg2-binary
+matplotlib
