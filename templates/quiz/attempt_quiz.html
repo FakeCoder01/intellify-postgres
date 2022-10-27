@@ -57,8 +57,9 @@
                 </div>
             </div>
 
+            {% csrf_token %}
             <div class="game-question-container">
-                <h1 id="display-question">Question goes here..</h1>
+                <h1 id="display-question">Question loading..</h1>
             </div>
 
             <div class="game-options-container">
@@ -105,7 +106,7 @@
             <div class="next-button-container">
                 <!-- <button onclick="handleNextQuestion()">Next Question</button> -->
                 <button id="prevQBtn">Previous</button>
-                <button id="nextQBtn">Next</button>
+                <button class="btn btn-primary" id="nextQBtn">Next</button>
             </div>
 
         </div>
@@ -117,6 +118,9 @@
 <script>
 
 
+
+    
+    
     const url = '/quiz/api/quiz-attempt/questions/?quiz_uid={{quiz.quiz_id}}';
     const quiz_time = parseInt('{{quiz.time_limit}}');
     let c = quiz_time*60;
@@ -124,25 +128,48 @@
         const result = (await fetch(url)).json();
         return result;
     }
-
+    
+    async function attempt_quiz_answer(question_id, answer_id){
+        $.ajax({
+            url: "/quiz/api/attempt-quiz-answer/?quiz_id={{quiz.quiz_id}}",
+            type: "POST",
+            data: { 
+				'question_id': question_id, 
+				'answer_id': answer_id,
+                'quiz_id' : '{{quiz.quiz_id}}',
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+			},
+            success: function(response) {
+				response = JSON.parse(response);
+				if (response.answer_added == true && response.msg == 'success' && response.status_code == 200){
+					return true;
+				}
+				else{
+					return false;
+				}
+            },
+            failure: function () {
+                return false;
+            }
+        });
+    }
+    
        
     (async function   () {
         var result = await get_quiz_questions_from_api_call();
         const Questions = result.data;
-
         // Set start
         var start = true;
-
-        var selected = {};
-    
+        var selected, quid;
         // Iterate
         function iterate(id) {
+            
             
             
             // Getting the question
             const display_question = document.getElementById("display-question");
             document.getElementById("q_count").innerHTML = id+1;
-           
+            
             var radios = document.querySelectorAll("input[type=radio]");
             for(var i=0; i<radios.length; ++i) {
                 radios[i].checked = false;
@@ -150,7 +177,7 @@
             
             // Setting the question text
             display_question.innerText = Questions[id].question; 
-    
+            quid = Questions[id].question_id;
             // Getting the options
             const op1 = document.getElementById('option-one-label');
             const op2 = document.getElementById('option-two-label');
@@ -159,16 +186,16 @@
     
     
             // Providing option text
-            document.getElementById('option-one').value = Questions[id].answers[0].answer;
+            document.getElementById('option-one').value = Questions[id].answers[0].answer_id;
             op1.innerText = Questions[id].answers[0].answer;
 
-            document.getElementById('option-two').value = Questions[id].answers[1].answer;
+            document.getElementById('option-two').value = Questions[id].answers[1].answer_id;
             op2.innerText = Questions[id].answers[1].answer;
 
-            document.getElementById('option-three').value = Questions[id].answers[2].answer;
+            document.getElementById('option-three').value = Questions[id].answers[2].answer_id;
             op3.innerText = Questions[id].answers[2].answer;
 
-            document.getElementById('option-four').value = Questions[id].answers[3].answer;
+            document.getElementById('option-four').value = Questions[id].answers[3].answer_id;
             op4.innerText = Questions[id].answers[3].answer;
     
     
@@ -176,22 +203,22 @@
     
             // Show selection for op1
             op1.addEventListener("click", () => {
-                selected[id.toString()] = document.getElementById('option-one').value;
+                selected= document.getElementById('option-one').value;
             })
     
             // Show selection for op2
             op2.addEventListener("click", () => {
-                selected[id.toString()] = document.getElementById('option-two').value;
+                selected = document.getElementById('option-two').value;
             })
     
             // Show selection for op3
             op3.addEventListener("click", () => {
-                selected[id.toString()] = document.getElementById('option-three').value;
+                selected= document.getElementById('option-three').value;
             })
     
             // Show selection for op4
             op4.addEventListener("click", () => {
-                selected[id.toString()] = document.getElementById('option-four').value;
+                selected = document.getElementById('option-four').value;
             })
     
     
@@ -211,6 +238,20 @@
     
         next.addEventListener("click", () => {
             start = false;
+            next.disabled = true;
+            next.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading..`;
+
+            if(attempt_quiz_answer(quid, selected)){
+                next.disabled = false;
+                next.innerHTML = `Save & Next`;
+                console.log("SUCCESS");
+            } 
+            else{
+                next.disabled = false;
+            next.innerHTML = `Save & Next`;
+                console.log("FAILED");
+            }
+
             if (id < Questions.length-1) {
                 id++;
                 iterate(id);

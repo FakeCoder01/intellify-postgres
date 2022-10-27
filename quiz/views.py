@@ -5,7 +5,7 @@ from .models import *
 from school.models import *
 from teacher.models import *
 from student.models import *
-import random, requests
+import random, requests, json
 from django.contrib.auth.decorators import login_required
 
 from .forms import QuestionsForm, AnswerForm
@@ -136,7 +136,6 @@ def select_question_api(request):
 def quiz_list(request):
 
     if request.user.groups.filter(name='school').exists():
-            
         school = School.objects.get(user=request.user)
         schoolNavHeader =  True
         isStudent = False
@@ -334,3 +333,60 @@ def attempt_quiz_questions_api(request):
     
     except:
         return HttpResponse("Something went wrong.")   
+
+@login_required(login_url='/student/login')
+def attempt_quiz_answer(request):
+    if request.method == 'POST':
+        try: #
+            quiz_id = request.POST['quiz_id']
+            question_id = request.POST['question_id']
+            answer_id = request.POST['answer_id']
+
+            if quiz_id == request.GET['quiz_id'] and quiz.objects.filter(quiz_id=quiz_id, classroom=request.user.studentprofile.classroom).exists() and Answer.objects.filter(uid=answer_id).exists() and Question.objects.filter(uid=question_id).exists():
+                atm_quiz = quiz.objects.get(quiz_id=quiz_id, classroom=request.user.studentprofile.classroom)
+                atm_answer = Answer.objects.get(uid=answer_id)
+                atm_question = Question.objects.get(uid=question_id)
+
+                if atm_quiz.question_list.filter(uid=question_id).exists() and atm_answer.question == atm_question:
+                    if quiz_response.objects.filter(quiz=atm_quiz, student=request.user.studentprofile, question=atm_question).exists():
+                        quiz_response.objects.get(quiz=atm_quiz, student=request.user.studentprofile, question=atm_question).delete()
+                    add_attempt_quiz_response = quiz_response.objects.create(
+                        quiz = atm_quiz,
+                        student = request.user.studentprofile,
+                        question = atm_question,
+                        student_answer = atm_answer,
+                    )
+                    return JsonResponse(json.dumps({
+                        "status_code" : 200,
+                        "answer_added" : True,
+                        "msg" : "success"
+                    }), safe=False)   
+        except:
+            pass    
+    return JsonResponse(json.dumps({
+        "status_code" : 422,
+        "msg" : "failed"
+    }), safe=False)        
+
+
+@login_required(login_url='/')
+def evaluate_quiz_master(request):
+    if request.method == 'POST':
+        try: #
+            quiz_id = request.POST['quiz_id']
+            total_marks = 0
+            if quiz_id == request.GET['quiz_id'] and quiz.objects.filter(quiz_id=quiz_id, classroom=request.user.studentprofile.classroom).exists():
+                atm_quiz = quiz.objects.get(quiz_id=quiz_id, classroom=request.user.studentprofile.classroom)
+
+                get_all_responses = quiz_response.objects.filter(quiz=atm_quiz, student=request.user.studentprofile)
+
+                for res in atm_quiz.question_list.all():
+                    res.answer
+
+                
+        except:
+            pass    
+    return JsonResponse(json.dumps({
+        "status_code" : 422,
+        "msg" : "failed"
+    }), safe=False)        

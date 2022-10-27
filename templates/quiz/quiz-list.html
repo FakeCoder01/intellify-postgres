@@ -43,7 +43,7 @@
                                   <thead>
                                      <tr>
                                         <th>Quiz Name</th>
-                                        <th>Classroom</th>
+                                        <th>{% if isStudent %} Time limit {% else %} Classroom{% endif %}</th>
                                         <th>Subject</th>
                                         <th>Scheduled Date</th>
                                         <th class="text-right">Action</th>
@@ -55,7 +55,7 @@
                                         <td>{{x}}</td>
                                         <td>
                                            <h2>
-                                              {{x.classroom}}
+                                             {% if isStudent %} {{x.time_limit}} mins {% else %} {{x.classroom}} {% endif %}
                                            </h2>
                                         </td>
                                         <td>{{x.subject}}</td>
@@ -71,8 +71,8 @@
                                               </a>
                                            </div>
                                           {% else %}
-                                          <a href="#/test/attempt?quiz_id={{x.quiz_id}}" class="btn btn-sm bg-success-light mr-2">
-                                             View
+                                          <a href="/quiz/attempt-quiz/{{x.quiz_id}}/" class="btn btn-sm bg-success-light mr-2">
+                                             Attempt
                                           </a> 
                                           {% endif %}
                                         </td>

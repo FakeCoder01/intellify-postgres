@@ -17,6 +17,6 @@ class QuestionAdmin(admin.ModelAdmin):
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer)
 admin.site.register(quiz)
-
-
+admin.site.register(quiz_response)
+admin.site.register(quiz_master)
 

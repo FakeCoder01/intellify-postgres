@@ -1,4 +1,5 @@
 from datetime import datetime
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 from school.models import subjects, Classroom
@@ -72,6 +73,9 @@ class Answer(BaseModel):
         return self.answer
 
 
+ 
+
+
 
 
 class quiz(models.Model):
@@ -109,4 +113,23 @@ class quiz(models.Model):
         self.no_of_questions = self.question_list.count()
         return self.no_of_questions
 
-        
+
+class quiz_response(models.Model):
+    quiz = models.ForeignKey(quiz, related_name="quiz_quizresponse", on_delete=models.CASCADE, null=True, blank=True)
+    student = models.ForeignKey(student_profile, related_name="student_quizresponse", on_delete=models.CASCADE, null=True, blank=True)
+    question = models.ForeignKey(Question, related_name="question_quizresponse", on_delete=models.CASCADE, null=True, blank=True)
+    student_answer = models.ForeignKey(Answer, related_name="answer_quizresponse", on_delete=models.CASCADE, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now= True)
+
+    def __str__(self):
+        return self.student.full_name
+
+class quiz_master(models.Model):
+    quiz = models.ForeignKey(quiz, related_name="quiz_quizmaster", on_delete=models.CASCADE, null=True, blank=True)
+    student = models.ForeignKey(student_profile, related_name="student_quizmaster", on_delete=models.CASCADE, null=True, blank=True)
+    marks = models.CharField(max_length=5, default='0', null=True, blank=True)
+    attempted_question = models.IntegerField(default=0)
+    submited_on =  models.DateTimeField(auto_now_add= True)
+
+    def __str__(self):
+        return self.student.full_name
