@@ -134,7 +134,7 @@ def create_teacher(request):
                 return render(request, 'teacher/add-teacher.html', context)
         except:
             messages.error(request, 'Add failed')
-            return redirect(f'/teacher/add&msg=add failed')
+            return redirect(f'/teacher/add?&msg=add failed')
     else:
         return redirect("/school/logout")
 
