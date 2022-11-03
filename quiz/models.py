@@ -119,6 +119,21 @@ class quiz_response(models.Model):
     student = models.ForeignKey(student_profile, related_name="student_quizresponse", on_delete=models.CASCADE, null=True, blank=True)
     question = models.ForeignKey(Question, related_name="question_quizresponse", on_delete=models.CASCADE, null=True, blank=True)
     student_answer = models.ForeignKey(Answer, related_name="answer_quizresponse", on_delete=models.CASCADE, null=True, blank=True)
+    evaluate = models.IntegerField(default=0)
+    correct_key = models.ForeignKey(Answer, related_name="correct_answer_quizresponse", on_delete=models.CASCADE, null=True, blank=True)
+
+
+
+    quiz_name = models.CharField(max_length=50)
+    subject = models.CharField(max_length=50)
+    topic = models.CharField(max_length=50)
+    teacher_name = models.CharField(max_length=50)
+    answer_text = models.CharField(max_length=50)
+    correct_answer_text = models.CharField(max_length=50)
+
+    question_text = models.CharField(max_length=150)
+    question_tags = models.CharField(max_length=150)
+
     updated_at = models.DateTimeField(auto_now= True)
 
     def __str__(self):

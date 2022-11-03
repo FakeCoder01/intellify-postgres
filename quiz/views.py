@@ -355,6 +355,15 @@ def attempt_quiz_answer(request):
                         student = request.user.studentprofile,
                         question = atm_question,
                         student_answer = atm_answer,
+
+                        quiz_name = atm_quiz.title,
+                        subject = atm_quiz.subject,
+                        topic = atm_question.topic,
+                        teacher_name = atm_quiz.teacher,
+                        answer_text = atm_answer.answer,
+                        correct_answer_text = Answer.objects.get(question=atm_question, is_correct=True),
+                        question_text = atm_question.question,
+                        question_tags = atm_question.tags,
                     )
                     return JsonResponse(json.dumps({
                         "status_code" : 200,
