@@ -370,7 +370,8 @@ def attempt_quiz_answer(request):
                         "answer_added" : True,
                         "msg" : "success"
                     }), safe=False)   
-        except:
+        except Exception as err:
+            print(err)
             pass    
     return JsonResponse(json.dumps({
         "status_code" : 422,
