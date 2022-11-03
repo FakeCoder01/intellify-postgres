@@ -124,15 +124,15 @@ class quiz_response(models.Model):
 
 
 
-    quiz_name = models.CharField(max_length=50)
-    subject = models.CharField(max_length=50)
-    topic = models.CharField(max_length=50)
-    teacher_name = models.CharField(max_length=50)
-    answer_text = models.CharField(max_length=50)
-    correct_answer_text = models.CharField(max_length=50)
+    quiz_name = models.CharField(max_length=50, null=True, blank=True)
+    subject = models.CharField(max_length=50, null=True, blank=True)
+    topic = models.CharField(max_length=50, null=True, blank=True)
+    teacher_name = models.CharField(max_length=50, null=True, blank=True)
+    answer_text = models.CharField(max_length=50, null=True, blank=True)
+    correct_answer_text = models.CharField(max_length=50, null=True, blank=True)
 
-    question_text = models.CharField(max_length=150)
-    question_tags = models.CharField(max_length=150)
+    question_text = models.CharField(max_length=150, null=True, blank=True)
+    question_tags = models.CharField(max_length=150, null=True, blank=True)
 
     updated_at = models.DateTimeField(auto_now= True)
 
