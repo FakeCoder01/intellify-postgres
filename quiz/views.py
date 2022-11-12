@@ -328,7 +328,14 @@ def attempt_quiz_questions_api(request):
                 'question_id' : question_obj.uid,
                 'answers' : question_obj.quiz_answer()
             })
-        payload = {'status' : True, 'quiz_id' : str(request.GET['quiz_uid']),'data' : data}
+        payload = {
+            'status' : True, 
+            'quiz_id' : str(request.GET['quiz_uid']),
+            'subject' : the_quiz.subject,
+            'time_limit' : the_quiz.time_limit,
+            'quiz_title' : the_quiz.title,
+            'data' : data
+        }
         return JsonResponse(payload)
     
     except:
@@ -390,12 +397,40 @@ def evaluate_quiz_master(request):
 
                 get_all_responses = quiz_response.objects.filter(quiz=atm_quiz, student=request.user.studentprofile)
 
-                for res in atm_quiz.question_list.all():
-                    res.answer
-
+                for res in get_all_responses:
+                    print(res)
+                    if res.correct_key == res.student_answer:
+                        total_marks = res.question.marks
                 
-        except:
-            pass    
+                quiz_master_evalute = quiz_master.objects.create(
+                        quiz_uid = atm_quiz.quiz_id,
+                        quiz_data = atm_quiz,
+                        quiz_type = atm_quiz.quiz_type,
+                        quiz_num = atm_quiz.id,
+                        quiz_name = atm_quiz.title,
+                        school_id = atm_quiz.classroom.school_id,
+                        school_name = atm_quiz.classroom.school_id.name,
+                        subject = atm_quiz.subject,
+                        quiz_class = atm_quiz.classroom.standard,
+                        quiz_topic = atm_quiz,
+                        student_name = request.user.studentprofile.full_name,
+                        teacher = atm_quiz.teacher,
+                        teacher_name =atm_quiz.teacher.full_name ,
+                        student = request.user.studentprofile,
+                        marks = total_marks,
+                        attempted_question = get_all_responses.count(),
+                )
+
+                return JsonResponse(json.dumps({
+                    'quiz_id' : atm_quiz.quiz_id,
+                    'student_id' : request.user.studentprofile.id,
+                    'user_id' : request.user.id,
+                    'student_name' : request.user.studentprofile.full_name,
+                    'quiz_title' : atm_quiz.title,
+                    'marks' : total_marks
+                }), safe=False)
+        except Exception as err:
+            print(err)    
     return JsonResponse(json.dumps({
         "status_code" : 422,
         "msg" : "failed"

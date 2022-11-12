@@ -140,11 +140,24 @@ class quiz_response(models.Model):
         return self.student.full_name
 
 class quiz_master(models.Model):
-    quiz = models.ForeignKey(quiz, related_name="quiz_quizmaster", on_delete=models.CASCADE, null=True, blank=True)
+
+    quiz_uid = models.UUIDField(null=True, blank=True)
+    quiz_data = models.ForeignKey(quiz, related_name="quiz_quizmaster", on_delete=models.CASCADE, null=True, blank=True)
+    quiz_type = models.CharField(max_length=50, blank=True, null=True)
+    quiz_num = models.CharField(max_length=4, blank=True, null=True)
+    quiz_name = models.CharField(max_length=50, blank=True, null=True)
+    school_id = models.CharField(max_length=50, blank=True, null=True)
+    school_name = models.CharField(max_length=50, blank=True, null=True)
+    subject = models.CharField(max_length=50, blank=True, null=True)
+    quiz_class = models.CharField(max_length=50, blank=True, null=True)
+    quiz_topic = models.CharField(max_length=50, blank=True, null=True)
+    student_name = models.CharField(max_length=50, blank=True, null=True)
+    teacher = models.ForeignKey(teacher_profile, related_name="teacher_quizmaster", on_delete=models.CASCADE, null=True, blank=True)
+    teacher_name = models.CharField(max_length=50, blank=True, null=True)
     student = models.ForeignKey(student_profile, related_name="student_quizmaster", on_delete=models.CASCADE, null=True, blank=True)
-    marks = models.CharField(max_length=5, default='0', null=True, blank=True)
+    marks = models.CharField(max_length=5, null=True, blank=True)
     attempted_question = models.IntegerField(default=0)
     submited_on =  models.DateTimeField(auto_now_add= True)
 
     def __str__(self):
-        return self.student.full_name
+        return self.student.school_name

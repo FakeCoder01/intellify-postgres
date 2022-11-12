@@ -104,9 +104,9 @@
             </div>
 
             <div class="next-button-container">
-                <!-- <button onclick="handleNextQuestion()">Next Question</button> -->
                 <button id="prevQBtn">Previous</button>
                 <button class="btn btn-primary" id="nextQBtn">Next</button>
+                <button class="btn btn-primary" onclick="handelEvaluteQuiz('{{quiz.quiz_id}}')" id="SubmitQuiz" hidden>SUBMIT</button>
             </div>
 
         </div>
@@ -118,7 +118,6 @@
 <script>
 
 
-
     
     
     const url = '/quiz/api/quiz-attempt/questions/?quiz_uid={{quiz.quiz_id}}';
@@ -127,6 +126,30 @@
     async function get_quiz_questions_from_api_call() {
         const result = (await fetch(url)).json();
         return result;
+    }
+
+    function handelEvaluteQuiz(quiz_id){
+        $.ajax({
+            url: "/quiz/api/evaluate-quiz/?quiz_id={{quiz.quiz_id}}",
+            type: "POST",
+            data: { 
+                'quiz_id' : '{{quiz.quiz_id}}',
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+			},
+            success: function(response) {
+				response = JSON.parse(response);
+                console.log(response);
+				// if (response.answer_added == true && response.msg == 'success' && response.status_code == 200){
+				// 	return true;
+				// }
+				// else{
+				// 	return false;
+				// }
+            },
+            failure: function () {
+                return false;
+            }
+        });
     }
     
     async function attempt_quiz_answer(question_id, answer_id){
@@ -235,6 +258,9 @@
         const next = document.getElementById('nextQBtn');
         const prev = document.getElementById('prevQBtn');
         var id = 0;
+
+
+
     
         next.addEventListener("click", () => {
             start = false;
@@ -252,14 +278,33 @@
                 console.log("FAILED");
             }
 
+            if(id+1 == Questions.length){
+                next.hidden = true;
+                document.getElementById("SubmitQuiz").hidden = false;
+            }
+            else{
+                document.getElementById("SubmitQuiz").hidden = true;
+                next.hidden = false;
+            }
+
             if (id < Questions.length-1) {
                 id++;
                 iterate(id);
             }
+
+
     
         })
 
         prev.addEventListener("click", () => {
+            if(id+1 == Questions.length){
+                next.hidden = true;
+                document.getElementById("SubmitQuiz").hidden = false;
+            }
+            else{
+                document.getElementById("SubmitQuiz").hidden = true;
+                next.hidden = false;
+            }
             start = false;
             if (id > 0) {
                 id--;
@@ -267,6 +312,8 @@
             }
     
         })
+
+        
 
 
     })();
