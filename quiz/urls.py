@@ -20,4 +20,7 @@ urlpatterns = [
     path('attempt-quiz/<str:quiz_id>/', views.attempt_quiz, name="attempt_quiz"),
 
 
+    path('api/evaluate-quiz/', views.evaluate_quiz_master, name="evaluate_quiz_master"),
+
+
 ]

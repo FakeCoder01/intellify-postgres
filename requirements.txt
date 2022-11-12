@@ -4,3 +4,6 @@ pillow
 openpyxl 
 django-crispy-forms
 psycopg2
+django-cors-header
+djangorestframework
+
