@@ -1,0 +1,6 @@
+quiz_id, quiz_title, student, question_num, question, student_answer, evaluate, correct_key, quiz_name, subject , topic, teacher_name, answer_text, correct_answer_text, question_text, question_tags
+9948d047-ebcc-4128-8135-dc88c058c822, Final Exam, Koel Saha, 280e1027-326d-4d74-ba2e-aa7367349b2a, What is 4+4 ?, 8,0,8,Final Exam,Mathematics,None,Shubham Biswas, 8,8, What is 4+4 ?, None  
+9948d047-ebcc-4128-8135-dc88c058c822, Final Exam, Koel Saha, 338127a6-1461-45ca-8eaf-dc99b9a58347, What is (13*100) - 100 ?, 1200,0,1200,Final Exam,Mathematics,None,Shubham Biswas, 1200,1200, What is (13*100) - 100 ?, None  
+9948d047-ebcc-4128-8135-dc88c058c822, Final Exam, Koel Saha, 4c56ea84-47ee-4307-b482-2596ca5b0efa, What is 16-9 ?, 7,0,7,Final Exam,Mathematics,None,Shubham Biswas, 7,7, What is 16-9 ?, None  
+9948d047-ebcc-4128-8135-dc88c058c822, Final Exam, Koel Saha, 589eb5e7-16f4-4a67-b965-e93a594b0f7f, Which one is an Odd number ?, 1,0,1,Final Exam,Mathematics,None,Shubham Biswas, 1,1, Which one is an Odd number ?, None  
+9948d047-ebcc-4128-8135-dc88c058c822, Final Exam, Koel Saha, eaa6514f-3b58-4216-9a2b-7630886d6f3d, What is (16/2)+8, 16,0,16,Final Exam,Mathematics,None,Shubham Biswas, 16,16, What is (16/2)+8, None  

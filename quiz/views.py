@@ -331,15 +331,13 @@ def attempt_quiz_questions_api(request):
         payload = {
             'status' : True, 
             'quiz_id' : str(request.GET['quiz_uid']),
-            'subject' : the_quiz.subject,
-            'time_limit' : the_quiz.time_limit,
-            'quiz_title' : the_quiz.title,
             'data' : data
         }
         return JsonResponse(payload)
     
-    except:
-        return HttpResponse("Something went wrong.")   
+    except Exception as err:
+        print(err)
+        return HttpResponse("Something went wrong q.")   
 
 @login_required(login_url='/student/login')
 def attempt_quiz_answer(request):
@@ -354,15 +352,20 @@ def attempt_quiz_answer(request):
                 atm_answer = Answer.objects.get(uid=answer_id)
                 atm_question = Question.objects.get(uid=question_id)
 
+                eval_true = 0
+
                 if atm_quiz.question_list.filter(uid=question_id).exists() and atm_answer.question == atm_question:
                     if quiz_response.objects.filter(quiz=atm_quiz, student=request.user.studentprofile, question=atm_question).exists():
                         quiz_response.objects.get(quiz=atm_quiz, student=request.user.studentprofile, question=atm_question).delete()
+                    if atm_answer == Answer.objects.get(is_correct=True, question=atm_question):
+                        eval_true = 1
                     add_attempt_quiz_response = quiz_response.objects.create(
                         quiz = atm_quiz,
                         student = request.user.studentprofile,
                         question = atm_question,
                         student_answer = atm_answer,
-
+                        evaluate = eval_true,
+                        correct_key = Answer.objects.get(is_correct=True, question=atm_question),
                         quiz_name = atm_quiz.title,
                         subject = atm_quiz.subject,
                         topic = atm_question.topic,
@@ -398,15 +401,13 @@ def evaluate_quiz_master(request):
                 get_all_responses = quiz_response.objects.filter(quiz=atm_quiz, student=request.user.studentprofile)
 
                 for res in get_all_responses:
-                    print(res)
                     if res.correct_key == res.student_answer:
-                        total_marks = res.question.marks
-                
+                        total_marks = total_marks + int(res.question.marks)
                 quiz_master_evalute = quiz_master.objects.create(
                         quiz_uid = atm_quiz.quiz_id,
                         quiz_data = atm_quiz,
                         quiz_type = atm_quiz.quiz_type,
-                        quiz_num = atm_quiz.id,
+                        quiz_num = 3,
                         quiz_name = atm_quiz.title,
                         school_id = atm_quiz.classroom.school_id,
                         school_name = atm_quiz.classroom.school_id.name,
@@ -422,7 +423,6 @@ def evaluate_quiz_master(request):
                 )
 
                 return JsonResponse(json.dumps({
-                    'quiz_id' : atm_quiz.quiz_id,
                     'student_id' : request.user.studentprofile.id,
                     'user_id' : request.user.id,
                     'student_name' : request.user.studentprofile.full_name,
@@ -435,3 +435,28 @@ def evaluate_quiz_master(request):
         "status_code" : 422,
         "msg" : "failed"
     }), safe=False)        
+
+
+# MASTER QUIZ AFTER SUBMITTING
+def getCSV(request):
+    with open('quiz_master.csv', 'a') as f:
+        master = quiz_master.objects.all()
+        f.write(f"Quiz_ID, Quiz_Data, Quiz_Type, Quiz_Num, Quiz_Name, School_ID , School_Name, Subject, Quiz_Class, Quiz_Topic, {x.student_name}, {x.teacher}, {x.teacher_name}, {x.student}, {x.student_name}, {x.marks}, {x.attempted_question}, {x.submited_on} \n")
+        for x in master:
+            f.write(f"{x.quiz_uid},{x.quiz_data}, {x.quiz_type}, {x.quiz_num}, {x.quiz_name}, {x.school_id} , {x.school_name}, {x.subject}, {x.quiz_class}, {x.quiz_topic}, {x.student_name}, {x.teacher}, {x.teacher_name}, {x.student}, {x.student_name}, {x.marks}, {x.attempted_question}, {x.submited_on} \n")
+    return HttpResponse("Hey you :))")
+
+
+def getResponseCSV(request):
+    with open('quiz_response.csv', 'a') as file:
+        res = quiz_response.objects.all()
+        i = 1
+        for m in res:
+            file.write(f"{m.quiz.quiz_id}, {m.quiz.title}, {m.student}, {i}, {m.question}, {m.student_answer},{m.evaluate},{m.correct_key},{m.quiz_name},{m.subject},{m.topic},{m.teacher_name}, {m.answer_text},{m.correct_answer_text}, {m.question_text}, {m.question_tags}  \n")    
+            i = i+1
+
+    return HttpResponse("<h1>hello :))</h1>")        
+
+
+
+    
