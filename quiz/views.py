@@ -269,15 +269,18 @@ def get_quiz_questions_api(request):
 
 def add_ques(request):
     quesForm = QuestionsForm()
+    ansForm = AnswerForm()
     if request.user.groups.filter(name='school').exists():
         schoolNavHeader =  True
     else:
         schoolNavHeader = False
     if request.method == "POST":
         quesForm = QuestionsForm(request.POST)
-        if quesForm.is_valid():
+        ansForm = AnswerForm(request.POST)
+        if quesForm.is_valid() and ansForm.is_valid():
             quesForm.save()
-    context = {'quesForm': quesForm, 'schoolNavHeader':schoolNavHeader}
+            ansForm.save()
+    context = {'quesForm': quesForm, 'schoolNavHeader':schoolNavHeader, 'ansForm': ansForm}
     return render(request, 'quiz/add_ques.html', context)
 
 
