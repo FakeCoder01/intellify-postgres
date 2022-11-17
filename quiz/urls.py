@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-
+from . import api
 urlpatterns = [
     path('add/', views.add_quiz, name="add_quiz"),
     path('search-ques/', views.search_ques, name="search-ques"),
@@ -24,5 +24,6 @@ urlpatterns = [
 
 
     path('getResponseCSV/', views.getResponseCSV, name="res_csv"),
+    path('graph/quiz/<str:quiz_id>/', api.latest_quiz_graph, name="latest_quiz_graph"),
 
 ]
