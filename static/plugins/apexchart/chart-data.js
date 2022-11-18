@@ -3,6 +3,118 @@
 
 'use strict';
 
+var res;
+let question = [];
+let solved = [];
+
+const getData = async () => {
+	const response = await fetch("http://127.0.0.1:8000/quiz/graph/quiz/9948d047-ebcc-4128-8135-dc88c058c822/");
+	const data = await response.json();
+	res = JSON.parse(data);
+	let resp = res.data;
+	console.log(resp);
+	for (let index = 0; index < resp.length; index++) {
+		// console.log(resp[index].question_no);
+		question.push(resp[index].question_no);
+		solved.push(resp[index].performence);
+	}
+	return [question, solved];
+};
+
+(async () => {
+	await getData()
+
+	$(document).ready(function () {
+
+		if ($('#chart3').length > 0) {
+			var options = {
+				series: [{
+					name: 'Correct',
+					data: solved
+				}],
+				chart: {
+					height: 350,
+					type: 'bar',
+				},
+				plotOptions: {
+					bar: {
+						borderRadius: 10,
+						dataLabels: {
+							position: 'top', // top, center, bottom
+						},
+					}
+				},
+				dataLabels: {
+					enabled: true,
+					formatter: function (val) {
+						return val;
+					},
+					offsetY: -20,
+					style: {
+						fontSize: '12px',
+						colors: ["#304758"]
+					}
+				},
+
+				xaxis: {
+					categories: question,
+					position: 'top',
+					axisBorder: {
+						show: false
+					},
+					axisTicks: {
+						show: false
+					},
+					crosshairs: {
+						fill: {
+							type: 'gradient',
+							gradient: {
+								colorFrom: '#D8E3F0',
+								colorTo: '#BED1E6',
+								stops: [0, 100],
+								opacityFrom: 0.4,
+								opacityTo: 0.5,
+							}
+						}
+					},
+					tooltip: {
+						enabled: true,
+					}
+				},
+				yaxis: {
+					axisBorder: {
+						show: false
+					},
+					axisTicks: {
+						show: false,
+					},
+					labels: {
+						show: false,
+						formatter: function (val) {
+							return val;
+						}
+					}
+
+				},
+				title: {
+					text: "Today's Quiz Analysis, 1st A",
+					floating: true,
+					offsetY: 330,
+					align: 'center',
+					style: {
+						color: '#444'
+					}
+				}
+			};
+
+			var chart = new ApexCharts(document.querySelector("#chart3"), options);
+			chart.render();
+		}
+	});
+	// console.log(question);
+	// console.log(solved);
+})();
+
 $(document).ready(function () {
 
 	// chart-student-graph
@@ -292,92 +404,6 @@ $(document).ready(function () {
 
 		var chart = new ApexCharts(document.querySelector("#chart2"), options);
 		chart.render();
-	}
-
-	if ($('#chart3').length > 0) {
-		var options = {
-			series: [{
-				name: 'Correct',
-				data: [34, 26, 20, 15, 28, 19, 10, 15]
-			}],
-			chart: {
-				height: 350,
-				type: 'bar',
-			},
-			plotOptions: {
-				bar: {
-					borderRadius: 10,
-					dataLabels: {
-						position: 'top', // top, center, bottom
-					},
-				}
-			},
-			dataLabels: {
-				enabled: true,
-				formatter: function (val) {
-					return val;
-				},
-				offsetY: -20,
-				style: {
-					fontSize: '12px',
-					colors: ["#304758"]
-				}
-			},
-
-			xaxis: {
-				categories: ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10"],
-				position: 'top',
-				axisBorder: {
-					show: false
-				},
-				axisTicks: {
-					show: false
-				},
-				crosshairs: {
-					fill: {
-						type: 'gradient',
-						gradient: {
-							colorFrom: '#D8E3F0',
-							colorTo: '#BED1E6',
-							stops: [0, 100],
-							opacityFrom: 0.4,
-							opacityTo: 0.5,
-						}
-					}
-				},
-				tooltip: {
-					enabled: true,
-				}
-			},
-			yaxis: {
-				axisBorder: {
-					show: false
-				},
-				axisTicks: {
-					show: false,
-				},
-				labels: {
-					show: false,
-					formatter: function (val) {
-						return val;
-					}
-				}
-
-			},
-			title: {
-				text: "Today's Quiz Analysis, 1st A",
-				floating: true,
-				offsetY: 330,
-				align: 'center',
-				style: {
-					color: '#444'
-				}
-			}
-		};
-
-		var chart = new ApexCharts(document.querySelector("#chart3"), options);
-		chart.render();
-
 	}
 
 	if ($('#chart4').length > 0) {
