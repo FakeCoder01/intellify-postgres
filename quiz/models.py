@@ -23,7 +23,6 @@ class BaseModel(models.Model):
 
 class Category(BaseModel):
     category_name = models.CharField(max_length = 100)
-
     def __str__(self):
         return self.category_name
 
@@ -122,7 +121,7 @@ class quiz_response(models.Model):
     evaluate = models.IntegerField(default=0)
     correct_key = models.ForeignKey(Answer, related_name="correct_answer_quizresponse", on_delete=models.CASCADE, null=True, blank=True)
 
-
+    level = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="quiz_catagory_response", null=True, blank=True)
 
     quiz_name = models.CharField(max_length=50, null=True, blank=True)
     subject = models.CharField(max_length=50, null=True, blank=True)

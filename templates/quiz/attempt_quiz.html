@@ -52,7 +52,7 @@
                 <div>
                     <h5>Timer : <span id="time_limit">{{quiz.time_limit}}</span></h5>
                     <div>
-                        <button type="button" class="btn btn-danger">Back Home</button>
+                        <a type="button" href="/student/" class="btn btn-danger">Back Home</a>
                     </div>
                 </div>
             </div>
@@ -139,6 +139,7 @@
             success: function(response) {
 				response = JSON.parse(response);
                 console.log(response);
+                window.location.href = "/student?Quiz=Submitted";
 				// if (response.answer_added == true && response.msg == 'success' && response.status_code == 200){
 				// 	return true;
 				// }
@@ -327,7 +328,10 @@
 		var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);            
 		$('#time_limit').html(result);
 		c--;
-		if(c == 0 ) $('#quiz_attempt_main_container').html('<h1>Time Over, Quiz Ended!</h1>'); 
+		if(c == 0 ) {
+            $('#quiz_attempt_main_container').html('<h1>Time Over, Quiz Ended!</h1>'); 
+            window.location.href = "/student?Quiz=Ended";
+        }
         
 		t = setTimeout(function() {
 			timedCount()

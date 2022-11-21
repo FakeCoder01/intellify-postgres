@@ -25,5 +25,6 @@ urlpatterns = [
 
     path('getResponseCSV/', views.getResponseCSV, name="res_csv"),
     path('graph/quiz/<str:quiz_id>/', api.latest_quiz_graph, name="latest_quiz_graph"),
+    path('graph/level/<str:quiz_id>/', api.get_level_graph, name="get_level_graph"),
 
 ]

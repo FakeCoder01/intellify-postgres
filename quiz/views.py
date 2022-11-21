@@ -369,6 +369,7 @@ def attempt_quiz_answer(request):
                         student_answer = atm_answer,
                         evaluate = eval_true,
                         correct_key = Answer.objects.get(is_correct=True, question=atm_question),
+                        level = atm_question.level,
                         quiz_name = atm_quiz.title,
                         subject = atm_quiz.subject,
                         topic = atm_question.topic,
