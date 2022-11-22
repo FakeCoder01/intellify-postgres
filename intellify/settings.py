@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'student',
     'quiz',
     'corsheaders',
+    'mathfilters'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
