@@ -8,11 +8,11 @@ let question = [];
 let solved = [];
 
 const getData = async () => {
-	const response = await fetch("http://127.0.0.1:8000/quiz/graph/quiz/9948d047-ebcc-4128-8135-dc88c058c822/");
+	const response = await fetch("http://127.0.0.1:8000/quiz/graph/quiz/4576ca23-ba23-4e60-90d5-5961d1e9f3bc/");
 	const data = await response.json();
 	res = JSON.parse(data);
 	let resp = res.data;
-	console.log(resp);
+	// console.log(resp);
 	for (let index = 0; index < resp.length; index++) {
 		// console.log(resp[index].question_no);
 		question.push(resp[index].question_no);

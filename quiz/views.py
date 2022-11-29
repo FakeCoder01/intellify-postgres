@@ -277,9 +277,9 @@ def add_ques(request):
     if request.method == "POST":
         quesForm = QuestionsForm(request.POST)
         ansForm = AnswerForm(request.POST)
-        if quesForm.is_valid() and ansForm.is_valid():
+        if quesForm.is_valid():
             quesForm.save()
-            ansForm.save()
+            # ansForm.save()
     context = {'quesForm': quesForm, 'schoolNavHeader':schoolNavHeader, 'ansForm': ansForm}
     return render(request, 'quiz/add_ques.html', context)
 

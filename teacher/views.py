@@ -11,6 +11,8 @@ from school.models import School, Classroom, subjects
 from django.utils.crypto import get_random_string
 import openpyxl
 from django.contrib import messages
+import requests
+import json
 # Create your views here.
 
 
@@ -307,9 +309,23 @@ def upload_teacher(request):
 def dash(request):
     if request.user.is_authenticated and teacher_profile.objects.filter(user=User.objects.get(id=request.user.id)).exists():
         teacher = teacher_profile.objects.get(id=request.user.teacherprofile.id)
+        # url = 'http://127.0.0.1:8000/quiz/graph/level/4576ca23-ba23-4e60-90d5-5961d1e9f3bc/'
+        # serialized_data = urlopen(url).read()
+
+        # data = json.loads(serialized_data)
+        # print(data)
+        # # for i in data["data"]:
+        # #     print(i)
+
+        r = requests.get('http://127.0.0.1:8000/quiz/graph/level/4576ca23-ba23-4e60-90d5-5961d1e9f3bc/')
+        response_dict = json.loads(json.loads((r.text))) # doubly encoded
+
+        data = response_dict["data"]
+
         context = {
             'teacher' : teacher,
-            'school_id' : teacher.school.id
+            'school_id' : teacher.school.id,
+            'data' : data
         }
         return render(request, 'teacher/index.html', context)
     return redirect('/teacher/login')
