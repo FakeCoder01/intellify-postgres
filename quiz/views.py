@@ -1,4 +1,6 @@
 from tkinter import E
+import pywhatkit
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import *
@@ -7,6 +9,7 @@ from teacher.models import *
 from student.models import *
 import random, requests, json
 from django.contrib.auth.decorators import login_required
+from twilio.rest import Client 
 
 from .forms import QuestionsForm, AnswerForm
 # Create your views here.
@@ -56,8 +59,10 @@ def add_quiz(request):
                         title = title,
                         time_limit = time_limit,
                     )
+
                     new_quiz.save()
                     quiz_id = new_quiz.quiz_id
+
                     return redirect(f"/quiz/search-ques/?quiz_id={quiz_id}&msg=Quiz-added")
             context = {
                 'classrooms' : classrooms,
@@ -66,7 +71,7 @@ def add_quiz(request):
                 'subjects' : subjects.objects.all() if schoolNavHeader else teacher.subject
             }       
             return render(request, 'quiz/add-quiz.html', context)
-        except:#
+        except:
             return redirect('/quiz/add')     
     return redirect('/')    
 
@@ -179,15 +184,18 @@ def select_quiz_profile_api(request):
         quiz_id = str(request.GET['quiz_id'])
         pro_quiz = quiz.objects.get(quiz_id=quiz_id)
 
+       
+        # myobj = datetime.now()
+        # pywhatkit.sendwhatmsg_to_group("+919991800768", f"Your quiz {pro_quiz.title} is scheduled at {pro_quiz.quiz_schedule}. It will be a {pro_quiz.time_limit} minutes quiz.", True, 5)
+        pywhatkit.sendwhatmsg_instantly("+919991800768", f"Your quiz {pro_quiz.title} is scheduled at {pro_quiz.quiz_schedule}. It will be a {pro_quiz.time_limit} minutes quiz.", 15, True, 1)
+
         context = {
             'quiz' : pro_quiz,
             'quiz_id' : quiz_id,
             'schoolNavHeader' : schoolNavHeader,
         }       
         return render(request, 'quiz/quiz-profile.html', context)   
-
-
-             
+            
         return redirect('/quiz/list?msg=add-success') ###
     return redirect('/')   
 
