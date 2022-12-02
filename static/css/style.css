@@ -56,6 +56,7 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	background-color: #e3e3e3;
 	/* background-color: black; */
 	/* background: url('../assets/background_image.jpg'); */
 	/* background-color: black; */
@@ -66,13 +67,15 @@ body {
 
 .game-quiz-container {
 	width: 60rem;
-	height: 40rem;
+	height: 35rem;
 	background-color: rgb(247, 247, 247);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
 	box-shadow: 2px 5px 10px #777;
+	font-family: monospace;
+
 	/* border-radius: 30px; */
 }
 
@@ -89,13 +92,13 @@ body {
 }
 
 .game-question-container {
-	width: 80%;
-	height: 8rem;
+	width: 70%;
+	height: 7rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	border: 2px solid darkgray;
-	border-radius: 25px;
+	border-radius: 5px;
 }
 
 .game-question-container h1 {
@@ -105,19 +108,20 @@ body {
 }
 
 .game-options-container {
-	width: 80%;
-	height: 12rem;
+	width: 70%;
+	height: 11rem;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-around;
 }
 
+
 .game-options-container span {
 	width: 45%;
 	height: 3rem;
 	border: 2px solid darkgray;
-	border-radius: 20px;
+	border-radius: 5px;
 	overflow: hidden;
 }
 
@@ -138,6 +142,7 @@ span label:hover {
 	-webkit-transform: scale(1.12);
 	transform: scale(1.12);
 	color: #555;
+	background: rgb(255, 255, 135);
 }
 
 input[type="radio"] {
@@ -161,7 +166,7 @@ input[type=radio]:checked~.option {
 .next-button-container button {
 	width: 8rem;
 	height: 2rem;
-	border-radius: 10px;
+	border-radius: 5px;
 	background: none;
 	color: rgb(25, 25, 25);
 	font-weight: 600;
@@ -171,7 +176,8 @@ input[type=radio]:checked~.option {
 }
 
 .next-button-container button:hover {
-	background-color: rgb(143, 93, 93);
+	background-color: #555;
+	color: #f1f1f1;
 }
 
 .modal-container {
