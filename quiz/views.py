@@ -186,8 +186,8 @@ def select_quiz_profile_api(request):
 
        
         # myobj = datetime.now()
-        # pywhatkit.sendwhatmsg_to_group("+919991800768", f"Your quiz {pro_quiz.title} is scheduled at {pro_quiz.quiz_schedule}. It will be a {pro_quiz.time_limit} minutes quiz.", True, 5)
-        pywhatkit.sendwhatmsg_instantly("+919991800768", f"Your quiz {pro_quiz.title} is scheduled at {pro_quiz.quiz_schedule}. It will be a {pro_quiz.time_limit} minutes quiz.", 15, True, 1)
+        # pywhatkit.sendwhatmsg_to_group("+918318693480", f"Your quiz {pro_quiz.title} is scheduled at {pro_quiz.quiz_schedule}. It will be a {pro_quiz.time_limit} minutes quiz.", True, 5)
+        pywhatkit.sendwhatmsg_instantly("+918318693480", f"Your quiz {pro_quiz.title} is scheduled at {pro_quiz.quiz_schedule}. It will be a {pro_quiz.time_limit} minutes quiz.", 15, True, 1)
 
         context = {
             'quiz' : pro_quiz,
