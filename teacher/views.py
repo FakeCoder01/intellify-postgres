@@ -6,6 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from requests import session
 from django.contrib.auth.decorators import login_required
 from .models import teacher_profile
+from quiz.models import quiz
 
 from school.models import School, Classroom, subjects
 from django.utils.crypto import get_random_string
@@ -317,15 +318,19 @@ def dash(request):
         # # for i in data["data"]:
         # #     print(i)
 
-        r = requests.get('http://127.0.0.1:8000/quiz/graph/level/4576ca23-ba23-4e60-90d5-5961d1e9f3bc/')
+
+        quiz_id = quiz.objects.latest('quiz_schedule').quiz_id
+        r = requests.get(f'http://127.0.0.1:8000/quiz/graph/level/{quiz_id}/')
         response_dict = json.loads(json.loads((r.text))) # doubly encoded
 
         data = response_dict["data"]
 
+
         context = {
             'teacher' : teacher,
             'school_id' : teacher.school.id,
-            'data' : data
+            'data' : data,
+            'quiz_id' : quiz_id
         }
         return render(request, 'teacher/index.html', context)
     return redirect('/teacher/login')

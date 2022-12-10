@@ -8,7 +8,8 @@ let question = [];
 let solved = [];
 
 const getData = async () => {
-	const response = await fetch("http://127.0.0.1:8000/quiz/graph/quiz/4576ca23-ba23-4e60-90d5-5961d1e9f3bc/");
+	const quiz_id = document.getElementById("quiz_id").value;
+	const response = await fetch(`http://127.0.0.1:8000/quiz/graph/quiz/${quiz_id}/`);
 	const data = await response.json();
 	res = JSON.parse(data);
 	let resp = res.data;
