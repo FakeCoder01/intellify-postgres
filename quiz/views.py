@@ -471,4 +471,5 @@ def getResponseCSV(request):
 
 
 
-    
+def quiz_analysis(request):
+    return render(request, 'quiz/quiz-analysis.html')
